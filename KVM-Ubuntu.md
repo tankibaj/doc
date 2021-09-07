@@ -97,13 +97,19 @@ lsmod | grep -i kvm
 ### User & Groups settings
 
 ```bash
-sudo adduser $USER libvirt && \
-sudo adduser $USER kvm
+sudo adduser $(whoami) libvirt && \
+sudo adduser $(whoami) libvirt-qemu && \
+sudo adduser $(whoami) kvm
 ```
 
 ```bash
-echo 'user = "naim"' | sudo tee -a /etc/libvirt/qemu.conf
-echo 'group = "naim"' | sudo tee -a /etc/libvirt/qemu.conf
+echo "user = '$(whoami)'" | sudo tee -a /etc/libvirt/qemu.conf
+echo "group = 'libvirt-qemu'" | sudo tee -a /etc/libvirt/qemu.conf
+```
+
+Change security_driver to none [required for terraform]
+```bash
+echo 'security_driver = "none"' | sudo tee -a /etc/libvirt/qemu.conf
 ```
 
 
