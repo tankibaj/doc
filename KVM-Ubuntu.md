@@ -171,7 +171,7 @@ network:
 
 Optional: Bond dual network interfaces and bridge them
 
-```bash
+```yaml
 # This is the network config written by 'subiquity'
 network:
   bonds:
