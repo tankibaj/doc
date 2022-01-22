@@ -169,6 +169,37 @@ network:
         addresses: [8.8.8.8,1.1.1.1]
 ```
 
+Optional: Bond dual network interfaces and bridge them
+
+```bash
+# This is the network config written by 'subiquity'
+network:
+  bonds:
+    bond0:
+      interfaces:
+      - enx0050b6fdfb89
+      - enp2s0
+  ethernets:
+    enx0050b6fdfb89: {}
+    enp2s0: {}
+  version: 2
+  bridges:
+    br0:
+      addresses:
+      - 192.168.0.100/24
+      gateway4: 192.168.0.1
+      nameservers:
+        addresses:
+        - 192.168.1.1
+        - 1.1.1.1
+        - 8.8.8.8
+        search:
+        - hsrv
+      interfaces:
+        - bond0
+```
+
+
 As you can see we have removed the IP address from interface (enp2s0) and add the same IP to the bridge ‘**br0**‘ and also added interface (enp2s0) to the bridge br0. Apply these changes using below netplan command:
 
 ```bash
